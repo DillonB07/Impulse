@@ -9,3 +9,9 @@
 [![Slack](https://img.shields.io/badge/join_us_on_Slack--brightgreen.svg?logo=slack&longCache=false&style=flat&logoWidth=20)](https://join.slack.com/t/slack-pe72962/shared_invite/zt-t33np5wn-buyjIGEgQWw50jk7ygynCA)
 
 Read the Docs - [dbarnes18.github.io/Impulse](https://dbarnes18.github.io/Impulse)
+
+
+
+## WARNING
+
+This is only for macOS. If you are on Windows, it **will not** work.
