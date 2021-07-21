@@ -1,0 +1,42 @@
+site_name: Impulse
+site_url: https://dbarnes18.github.io/Impulse
+
+repo_url: https://github.com/dbarnes18/Impulse
+repo_name: dbarnes18/Impulse
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.top
+  icon:
+    logo: fontawesome/solid/users
+    repo: fontawesome/brands/github
+  favicon: assets/img/logo.png
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      primary: light yellow
+      accent: yellow
+      scheme: default
+      toggle:
+        icon: material/lightbulb
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      primary: yellow
+      accent: light yellow
+      scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to dark mode
+
+
+plugins:
+  - search
+
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tilde # strikethrough text
+  - pymdownx.details # "notes"
+  - attr_list #images
