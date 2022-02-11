@@ -51,7 +51,7 @@ def get_audio():
         except Exception as e:
             print('Exception: ' + str(+e))
 
-        if said == None:
+        if said is None:
             get_audio()
         else:
             return said.lower()
@@ -71,9 +71,7 @@ def authenticate_google():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
-    service = build('calendar', 'v3', credentials=creds)
-
-    return service
+    return build('calendar', 'v3', credentials=creds)
 
 
 def get_events(day, service):
@@ -86,12 +84,7 @@ def get_events(day, service):
     events_result = service.events().list(calendarId='primary', timeMin=date.isoformat(), timeMax=end_date.isoformat(),
                                           singleEvents=True,
                                           orderBy='startTime').execute()
-    events = events_result.get('items', [])
-
-    # NEW STUFF STARTS HERE
-    if not events:
-        speak('No upcoming events found.')
-    else:
+    if events := events_result.get('items', []):
         speak(f"You have {len(events)} events on this day.")
 
         for event in events:
@@ -99,12 +92,15 @@ def get_events(day, service):
             print(start, event['summary'])
             start_time = str(start.split("T")[1].split("+")[0])  # get the hour the event starts
             if int(start_time.split(":")[0]) < 12:  # if the event is in the morning
-                start_time = start_time + "am"
+                start_time += "am"
             else:
                 start_time = str(int(start_time.split(":")[0]) - 12) + start_time.split(':')[1] # convert 24 hour time to regular
-                start_time = start_time + "pm"
+                start_time += "pm"
 
-            speak(event["summary"] + " at " + start_time)
+            speak(f'{event["summary"]} at {start_time}')
+
+    else:
+        speak('No upcoming events found.')
 
 
 def get_date(text):
@@ -182,7 +178,6 @@ def note(text):
                 subprocess.Popen([texteditor, file])
             except:
                 pass
-            pass
     except:
         speak('Sublime Text not installed')
 
@@ -205,8 +200,7 @@ while True:
                 CALENDAR_STRS = ['what do i have', 'do i have plans', 'am i busy', 'events', 'what is on', 'what\'s going on']
                 for phrase in CALENDAR_STRS:
                     if phrase in text:
-                        date = get_date(text)
-                        if date:
+                        if date := get_date(text):
                             get_events(get_date(text), SERVICE)
                         else:
                             speak('Sorry, you need to tell me a date to check.')
